@@ -3,13 +3,14 @@ from kakaobot.models import Menu
 from bs4 import BeautifulSoup
 from urllib.request import urlopen, Request
 
+today=datetime.date.today().strftime("%Y년 %m월 %d일".encode('unicode-escape').decode()).encode().decode('unicode-escape')
 def crawl(request):
     '''
     일단은 DB삭제하는걸로 구현해놓고, 완성한 후에 년월일로 필터링하여 출력하는 걸로... 그럼 식단 정보도 계속 저장됨.
     datetime.date.today().strftime("%Y년 %m월 %d일".encode('unicode-escape').decode()).encode().decode('unicode-escape')
     '''
-    menu_db = Menu.objects.all()
-    # 최신상태유지위해 DB모조리 삭제
+    menu_db = Menu.objects.filter(date=today)
+    # 최신상태유지위해 해당 날짜의 DB만 삭제해보자.
     menu_db.delete()
 
     html = Request('http://dgucoop.dongguk.edu/store/store.php?w=4&l=2&j=0')
@@ -68,13 +69,11 @@ def crawl(request):
     dorm_menu = tds[date_number + 1].get_text()
     create_menu_db('기숙사_A코너', dorm_menu)
 
-
-
-
 #DB에 저장해주는 녀석
 def create_menu_db(cafe_name, menu):
     Menu.objects.create(
         cafe_name=cafe_name,
-        menu=menu
+        menu=menu,
+        date=today
     )
 

@@ -6,6 +6,8 @@ class Menu(models.Model):
     cafe_name = models.CharField(max_length=30, default="")
     ## 메뉴와 가격 저장
     menu = models.CharField(max_length=100, default="")
+    ## 날짜 저장
+    date=models.CharField(max_length=30, default="")
 
 class Game(models.Model):
     user_key = models.CharField(max_length=255, primary_key=True)
