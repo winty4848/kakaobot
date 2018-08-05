@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from dguyummy import views
+from kakaobot import views
 urlpatterns = [
     url(r'^keyboard/', views.keyboard),
     url(r'^message', views.answer),

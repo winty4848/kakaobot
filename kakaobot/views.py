@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 import json, datetime
-from dguyummy.models import Menu
+from kakaobot.models import Menu
 from bs4 import BeautifulSoup
 from urllib.request import urlopen, Request
 
