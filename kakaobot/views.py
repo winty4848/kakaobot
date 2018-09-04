@@ -307,7 +307,7 @@ def crawl(request):
     dorm = trs[27]
     tds = dorm.find_all('td')
     tree_B_menu = tds[date_number + 1].get_text()
-    create_menu_db('그루터기_A코너', tree_B_menu, today)
+    create_menu_db('그루터기_B코너', tree_B_menu, today)
 
     dorm = trs[41]
     tds = dorm.find_all('td')
