@@ -54,17 +54,9 @@ def answer(request):
                 'buttons': ['학식', '가위바위보 게임', '자기소개']
             }
         })
-    elif player_choice == '그루터기':
-        return JsonResponse({
-            'message': {
-                'text': '방학 중에는 그루터기를 운영하지 않습니다...'
-            },
-            'keyboard': {
-                'type': 'buttons',
-                'buttons': ['상록원', '그루터기', '기숙사식당', '교직원식당', '그만보기']
-            }
-        })
-    elif player_choice == '상록원' or player_choice=='기숙사식당' or player_choice=='교직원식당':
+
+
+    elif player_choice == '상록원' or player_choice=='기숙사식당' or player_choice=='교직원식당' or player_choice == '그루터기':
         return JsonResponse({
             'message': {
                 'text': today_date + '의 ' + player_choice + ' 중식 메뉴입니다.'+ get_menu(player_choice)
@@ -170,7 +162,7 @@ def answer(request):
             },
             'keyboard': {
                 'type': 'buttons',
-                'buttons': ['저의 생일', '취미', '기억에 남는 학교 수업', '가위바위보 게임']
+                'buttons': ['저의 생일', '취미', '기억에 남는 학교 수업', '그만보기']
             }
         })
 
@@ -181,7 +173,7 @@ def answer(request):
             },
             'keyboard': {
                 'type': 'buttons',
-                'buttons': ['저의 생일', '취미', '기억에 남는 학교 수업', '가위바위보 게임']
+                'buttons': ['저의 생일', '취미', '기억에 남는 학교 수업', '그만보기']
             }
         })
 
@@ -307,10 +299,20 @@ def crawl(request):
     sangrock_head_menu = tds[date_number + 1].get_text()
     create_menu_db('상록원_뚝배기코너', sangrock_head_menu,today)
 
-    dorm = trs[26]
+    dorm = trs[25]
+    tds = dorm.find_all('td')
+    tree_A_menu = tds[date_number + 1].get_text()
+    create_menu_db('그루터기_A코너', tree_A_menu,today)
+
+    dorm = trs[27]
+    tds = dorm.find_all('td')
+    tree_B_menu = tds[date_number + 1].get_text()
+    create_menu_db('그루터기_A코너', tree_B_menu, today)
+
+    dorm = trs[41]
     tds = dorm.find_all('td')
     dorm_menu = tds[date_number + 1].get_text()
-    create_menu_db('기숙사_A코너', dorm_menu,today)
+    create_menu_db('기숙사_A코너', dorm_menu , today)
 
 #DB에 저장해주는 녀석
 def create_menu_db(cafe_name, menu,today):
